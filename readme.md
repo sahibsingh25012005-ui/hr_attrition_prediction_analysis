@@ -50,7 +50,7 @@ The project includes:
 
 ## Page 1 — Attrition Overview
 
-![Attrition Overview](images/attrition_overview.png)
+![Attrition Overview]((https://github.com/sahibsingh25012005-ui/hr_attrition_prediction_analysis/blob/main/Images/Hr_Attrition_Overview.png))
 
 This page focuses on **historical employee attrition**, including:
 
