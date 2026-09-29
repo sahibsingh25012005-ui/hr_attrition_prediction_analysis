@@ -1,378 +1,397 @@
-\# HR Analytics: Employee Attrition Analysis \& Prediction
+# 📊 HR Analytics: Employee Attrition Analysis & Prediction
 
+An end-to-end **HR Analytics and Machine Learning project** that analyzes why employees leave an organization and predicts which active employees may be at higher risk of attrition.
 
+The project combines **MySQL, Python, Machine Learning, and Power BI** to build a complete analytics pipeline — from data storage and exploratory analysis to predictive modeling and interactive business dashboards.
 
-An end-to-end analytics project that explores \*\*why employees leave\*\* and \*\*who is likely to leave next\*\*. It combines SQL (MySQL), Python (pandas, scikit-learn) and a two-page interactive \*\*Power BI\*\* dashboard.
+---
 
+## 📌 Project Overview
 
+Employee attrition is an important HR challenge because unexpected employee turnover can increase recruitment costs, reduce productivity, and affect team performance.
 
-> \*\*Data source:\*\* \[IBM HR Analytics Employee Attrition \& Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset) sample dataset (1,470 employees, 35 features).
+This project addresses two key questions:
 
+1. **Why are employees leaving?**
+2. **Which currently active employees may be at higher risk of leaving?**
 
+The project includes:
 
-\---
+- SQL-based data analysis using **MySQL**
+- Exploratory Data Analysis using **Python**
+- Statistical hypothesis testing
+- Machine Learning using **Logistic Regression and Random Forest**
+- Hyperparameter tuning with **GridSearchCV**
+- Threshold optimization for attrition prediction
+- Attrition probability scoring for active employees
+- Interactive **Power BI dashboards**
 
+---
 
+## 📂 Dataset
 
-\## Dashboard Preview
+**Dataset:** IBM HR Analytics Employee Attrition & Performance
 
+**Source:** Kaggle
 
+[IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
 
-\### Page 1: Attrition Overview
+- **Employees:** 1,470
+- **Features:** 35
+- **Target:** `Attrition`
+- `Yes` = Employee left
+- `No` = Employee stayed
 
-!\[Attrition Overview](images/attrition\_overview.png)
+> **Note:** This is a sample/synthetic dataset and does not represent a specific real-world organization.
 
+---
 
+# 📊 Dashboard Preview
 
-\### Page 2: Predicted Attrition Risk
+## Page 1 — Attrition Overview
 
-!\[Predicted Attrition Risk](images/predicted\_attrition.png)
+![Attrition Overview](images/attrition_overview.png)
 
+This page focuses on **historical employee attrition**, including:
 
+- Overall attrition rate
+- Employee demographics
+- Department and job-role attrition
+- Income analysis
+- Job satisfaction
+- Employee tenure
+- Other HR-related patterns
 
-\---
+---
 
+## Page 2 — Predicted Attrition Risk
 
+![Predicted Attrition Risk](images/predicted_attrition.png)
 
-\## Project Workflow
+This page focuses on the **active workforce** and the employees identified by the ML model as having a higher predicted probability of attrition.
 
+It includes:
 
+- Predicted attrition count
+- Attrition probability
+- Department-wise risk
+- Job-role risk
+- Overtime analysis
+- Tenure-based risk patterns
 
+---
+
+# 🔄 Project Workflow
+
+```text
+                  MySQL
+                    │
+                    ▼
+             hr_attrition
+                    │
+                    ▼
+        Python: EDA + KPIs
+                    │
+                    ▼
+         Hypothesis Testing
+                    │
+                    ▼
+       Feature Engineering
+                    │
+                    ▼
+       Machine Learning Models
+                    │
+            ┌───────┴───────┐
+            ▼               ▼
+     Random Forest    Logistic Regression
+            │               │
+            └───────┬───────┘
+                    ▼
+             Model Evaluation
+                    │
+                    ▼
+          Threshold Optimization
+                    │
+                    ▼
+       Active Employee Prediction
+                    │
+                    ▼
+             MySQL Database
+                    │
+                    ▼
+          predicted_dataset
+                    │
+                    ▼
+              Power BI
 ```
 
-&#x20;MySQL (hr\_attrition)
+---
 
-&#x20;       │
+# 🛠️ Project Workflow
 
-&#x20;       ▼
+### 1. Data Storage
 
-&#x20;Python: EDA, KPIs, hypothesis test
+The raw HR dataset is stored in MySQL in the:
 
-&#x20;       │
-
-&#x20;       ▼
-
-&#x20;Feature engineering → Logistic Regression (threshold-tuned)
-
-&#x20;       │
-
-&#x20;       ▼
-
-&#x20;Attrition probabilities for active employees
-
-&#x20;       │
-
-&#x20;       ▼
-
-&#x20;MySQL (predicted\_dataset)  →  Power BI dashboard
-
+```text
+hr_attrition
 ```
 
+table.
 
+SQL was used to perform analytical queries and calculate HR KPIs.
 
-1\. \*\*Data storage:\*\* the raw dataset lives in a MySQL table `hr\_attrition`.
+---
 
-2\. \*\*Analysis:\*\* SQL queries and pandas compute KPIs; seaborn/matplotlib explore distributions.
+### 2. Exploratory Data Analysis
 
-3\. \*\*Hypothesis testing:\*\* a Welch's t-test checks whether income differs between leavers and stayers.
+Python was used to explore employee characteristics and identify potential attrition patterns.
 
-4\. \*\*Modelling:\*\* Random Forest and Logistic Regression are tuned with `GridSearchCV`; the final model scores every \*\*active\*\* employee with an attrition probability.
+Libraries used:
 
-5\. \*\*Reporting:\*\* predictions are written back to MySQL (`predicted\_dataset`) and visualised in Power BI.
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
 
+The analysis included:
 
+- Attrition distribution
+- Income analysis
+- Job satisfaction
+- Department analysis
+- Job-role analysis
+- Tenure analysis
+- Overtime analysis
 
-\---
+---
 
+### 3. Hypothesis Testing
 
+A **Welch's independent two-sample t-test** was performed to investigate whether average monthly income differed between employees who stayed and employees who left.
 
-\## Key Findings
+Results:
 
+| Group | Average Monthly Income |
+|---|---:|
+| Stayed | $6,833 |
+| Left | $4,787 |
 
+**Welch's t-test:**
 
-\### Historical attrition (all 1,470 employees)
+```text
+t = 7.48
+p ≈ 4.4e-13
+```
 
+The result provides statistical evidence of a difference in average monthly income between the two groups.
 
+> Statistical significance does not establish that income itself causes attrition.
+
+---
+
+# 📈 Key Historical Findings
+
+The historical analysis uses all **1,470 employees**.
 
 | Metric | Value |
+|---|---:|
+| Total Employees | 1,470 |
+| Active Employees | 1,233 |
+| Employees Who Left | 237 |
+| Overall Attrition Rate | **16.1%** |
+| Average Tenure | 7.01 years |
+| Average Tenure in Current Role | 4.23 years |
+| Average Monthly Income | $6,503 |
 
-|---|---|
+### Job Role
 
-| Total employees | 1,470 (1,233 active) |
+Sales Representatives have the highest observed attrition rate among job roles:
 
-| Total attrition | 237 (\*\*16.1%\*\*) |
+- **Sales Representatives:** 39.76%
+- **Laboratory Technicians:** 23.94%
+- **Human Resources:** 23.08%
 
-| Average tenure | 7.01 years (4.23 in current role) |
+### Department
 
-| Average monthly income | $6,503 |
+Department-level attrition rates:
 
+- **Sales:** 20.63%
+- **Human Resources:** 19.05%
+- **Research & Development:** 13.84%
 
+### Monthly Income
 
-\- \*\*Sales Representatives\*\* have by far the highest attrition rate of any role (\*\*39.76%\*\*), followed by Laboratory Technicians (23.94%) and Human Resources (23.08%).
+Employees earning below $3,000 per month had an observed attrition rate of:
 
-\- \*\*Sales\*\* is the department with the highest attrition rate (\*\*20.63%\*\*), then Human Resources (19.05%) and Research \& Development (13.84%).
+**28.61%**
 
-\- \*\*Low pay is a strong signal:\*\* employees earning under $3K/month leave at \*\*28.61%\*\*, versus 8.90% for those earning above $10K.
+compared with:
 
-\- \*\*Job satisfaction matters:\*\* employees with the lowest satisfaction leave at \*\*22.84%\*\*, about double the rate of the "Very High" group (11.33%).
+**8.90%**
 
-\- \*\*Income difference is statistically significant:\*\* average monthly income was \*\*$6,833 for stayers vs. $4,787 for leavers\*\* (Welch's t-test, t = 7.48, p ≈ 4.4e-13).
+for employees earning above $10,000 per month.
 
+### Job Satisfaction
 
+Employees in the lowest job-satisfaction group had an observed attrition rate of:
 
-\### Predicted attrition (1,233 active employees)
+**22.84%**
 
+compared with:
 
+**11.33%**
 
-| Metric | Value |
+for employees in the highest satisfaction group.
 
-|---|---|
+---
 
-| Employees flagged as likely to leave | 212 |
+# 🤖 Machine Learning
 
-| Predicted attrition rate | \*\*17.19%\*\* |
+## Objective
 
-| Average attrition probability | 21.3% |
+The machine learning model predicts the probability that an employee will leave the organization.
 
+### Target Variable
 
-
-\- Predicted risk is concentrated in \*\*Laboratory Technicians (60)\*\*, \*\*Sales Executives (49)\*\* and \*\*Research Scientists (36)\*\*.
-
-\- \*\*Research \& Development\*\* holds the most at-risk employees in absolute terms (123), followed by Sales (77) and HR (12).
-
-\- About \*\*two-thirds (66%)\*\* of flagged employees work overtime.
-
-\- Attrition probability is highest for employees with \*\*short tenure\*\* (roughly the first 10 years) and drops for long-serving staff.
-
-
-
-\---
-
-
-
-\## Machine Learning Details
-
-
-
-\*\*Target:\*\* `Attrition` (Yes = 1, No = 0)
-
-
-
-\*\*Preprocessing\*\*
-
-\- Dropped non-informative columns: `EmployeeNumber`, `EmployeeCount`, `StandardHours`, `Over18`.
-
-\- \*\*`Gender` was excluded from the model\*\* to avoid using a protected attribute as a predictor.
-
-\- Encoded `OverTime` (binary) and `Education` (ordinal); one-hot encoded remaining categoricals (`drop\_first=True`).
-
-\- Standardised numeric features with `StandardScaler` (fit on train only).
-
-\- 80/20 train/test split (`random\_state=42`).
-
-
-
-\*\*Models compared\*\*
-
-
-
-| Model | Tuning | Notes |
-
-|---|---|---|
-
-| Random Forest | `GridSearchCV`, 5-fold, scoring = recall | Accuracy 0.87 but recall for leavers only \*\*0.10\*\* |
-
-| Logistic Regression | `GridSearchCV`, 5-fold, scoring = F1 | Best params: `C=1`, `penalty=l1`, `solver=liblinear` |
-
-
-
-\*\*Final model: Logistic Regression with a 0.40 decision threshold.\*\* The dataset is imbalanced (about 16% leavers), so the default 0.50 cut-off misses too many leavers. Lowering it trades some precision for better recall:
-
-
-
-| Threshold | Precision (Yes) | Recall (Yes) | F1 (Yes) |
-
-|---|---|---|---|
-
-| 0.50 | 0.56 | 0.36 | 0.44 |
-
-| 0.45 | 0.50 | 0.41 | 0.45 |
-
-| \*\*0.40\*\* | \*\*0.50\*\* | \*\*0.49\*\* | \*\*0.49\*\* |
-
-
-
-Confusion matrix at 0.40 (test set, n = 294):
-
-
-
-|  | Predicted stay | Predicted leave |
-
-|---|---|---|
-
-| \*\*Actual stay\*\* | 227 | 28 |
-
-| \*\*Actual leave\*\* | 20 | 19 |
-
-
-
-\*\*Scoring:\*\* the fitted model scores only employees with `Attrition = No` (the active workforce). Output columns `Attrition\_probability` (%) and `Predict\_attrition` are saved to the `predicted\_dataset` table, which feeds the second dashboard page.
-
-
-
-\### Limitations
-
-\- The model finds about half of true leavers at \~50% precision. Treat scores as a \*\*prioritisation aid for HR conversations\*\*, not as individual verdicts.
-
-\- The test set is small (39 leavers), so metrics are noisy.
-
-\- The dataset is a \*\*synthetic sample\*\* from IBM; conclusions may not transfer to a real organisation.
-
-\- Correlation is not causation: features like overtime and low income are associated with leaving, but this analysis does not prove they cause it.
-
-
-
-\---
-
-
-
-\## Repository Structure
-
-
-
+```text
+Attrition
 ```
 
-├── main.ipynb            # SQL + EDA + hypothesis test + ML pipeline
+Encoding:
 
-├── hr\_analytics.pbix     # Power BI dashboard (2 pages)
-
-├── images/
-
-│   ├── attrition\_overview.png
-
-│   └── predicted\_attrition.png
-
-└── README.md
-
+```text
+Yes → 1
+No  → 0
 ```
 
+---
 
+## 🧹 Data Preprocessing
 
-\---
+The following non-informative columns were removed:
 
-
-
-\## Tech Stack
-
-
-
-\- \*\*Database:\*\* MySQL (via SQLAlchemy + PyMySQL)
-
-\- \*\*Analysis:\*\* Python, pandas, NumPy, SciPy
-
-\- \*\*Visualisation:\*\* matplotlib, seaborn, Power BI
-
-\- \*\*Machine learning:\*\* scikit-learn (Logistic Regression, Random Forest, GridSearchCV)
-
-
-
-\---
-
-
-
-\## Getting Started
-
-
-
-\### 1. Prerequisites
-
-\- Python 3.9+
-
-\- MySQL Server
-
-\- Power BI Desktop (to open the `.pbix` file)
-
-
-
-```bash
-
-pip install pandas numpy matplotlib seaborn scipy scikit-learn sqlalchemy pymysql jupyter
-
+```text
+EmployeeNumber
+EmployeeCount
+StandardHours
+Over18
 ```
 
+`Gender` was excluded from the predictive model to avoid using a protected demographic attribute as a predictor.
 
+### Encoding
 
-\### 2. Set up the database
+- `OverTime` → binary encoding
+- `Education` → ordinal encoding
+- Remaining categorical variables → one-hot encoding
+- `drop_first=True` used for one-hot encoding
 
-1\. Download the IBM HR Analytics CSV from Kaggle.
+### Feature Scaling
 
-2\. Create a database named `hr` and load the CSV into a table called `hr\_attrition`.
-
-
-
-\### 3. Configure the connection
-
-The notebook connects with SQLAlchemy. Keep credentials out of source control by reading them from environment variables:
-
-
+Numeric features were standardized using:
 
 ```python
-
-import os
-
-from sqlalchemy import create\_engine
-
-
-
-engine = create\_engine(
-
-&#x20;   f"mysql+pymysql://{os.environ\['DB\_USER']}:{os.environ\['DB\_PASSWORD']}@localhost/hr"
-
-)
-
+StandardScaler()
 ```
 
+The scaler was fitted only on the training data to avoid data leakage.
 
+### Train/Test Split
 
-\### 4. Run the notebook
-
-```bash
-
-jupyter notebook main.ipynb
-
+```text
+Training set: 80%
+Testing set: 20%
+random_state = 42
 ```
 
-Running it end to end will (re)create the `predicted\_dataset` table in MySQL.
+---
 
+# 🧠 Models Compared
 
+Two classification models were evaluated.
 
-\### 5. Open the dashboard
+| Model | Tuning | Result |
+|---|---|---|
+| Random Forest | GridSearchCV, 5-fold CV, scoring = recall | Accuracy: 0.87, Recall for leavers: 0.10 |
+| Logistic Regression | GridSearchCV, 5-fold CV, scoring = F1 | Selected as final model |
 
-Open `hr\_analytics.pbix` in Power BI Desktop and refresh the data source so it points at your local MySQL instance.
+### Logistic Regression Best Parameters
 
+```python
+C = 1
+penalty = "l1"
+solver = "liblinear"
+```
 
+---
 
-\---
+# 🎯 Threshold Optimization
 
+The dataset is imbalanced, with only about **16% of employees being leavers**.
 
+Using the default classification threshold of `0.50` can result in too many actual leavers being classified as staying.
 
-\## Possible Next Steps
+Therefore, different probability thresholds were evaluated.
 
-\- Handle class imbalance with SMOTE or class weights and compare against gradient boosting (XGBoost / LightGBM).
+| Threshold | Precision | Recall | F1 |
+|---:|---:|---:|---:|
+| 0.50 | 0.56 | 0.36 | 0.44 |
+| 0.45 | 0.50 | 0.41 | 0.45 |
+| **0.40** | **0.50** | **0.49** | **0.49** |
 
-\- Add model explainability (SHAP or logistic coefficients) to show \*why\* each employee is flagged.
+The final model uses a:
 
-\- Calibrate probabilities and validate with cross-validated threshold selection.
+```text
+Decision Threshold = 0.40
+```
 
-\- Add a retention-cost estimate to prioritise the highest-value at-risk employees.
+This threshold was selected based on the observed trade-off between precision and recall.
 
+---
 
+# 📊 Confusion Matrix
 
-\---
+Test-set performance at the `0.40` threshold:
 
+**Test set size: 294 employees**
 
+| | Predicted Stay | Predicted Leave |
+|---|---:|---:|
+| **Actual Stay** | 227 | 28 |
+| **Actual Leave** | 20 | 19 |
 
-\## Acknowledgements
+From this result:
 
-Dataset: IBM HR Analytics Employee Attrition \& Performance (Kaggle sample data).
+- True Negatives = 227
+- False Positives = 28
+- False Negatives = 20
+- True Positives = 19
 
+The model identified **19 of the 39 actual leavers** in the test set.
+
+---
+
+# 🔮 Predicting Attrition for Active Employees
+
+After evaluating the model, it was applied only to employees whose historical attrition status was:
+
+```text
+Attrition = No
+```
+
+This represents the **1,233 currently active employees** in the dataset.
+
+For each active employee, the model generates:
+
+```text
+Attrition_probability
+Predict_attrition
+```
+
+The probability is stored as a percentage and the prediction is based on the selected `0.40` threshold.
+
+The results are then written back to MySQL in:
+
+```text
+pred
