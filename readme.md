@@ -1,4 +1,4 @@
-# 📊 HR Analytics: Employee Attrition Analysis & Prediction
+#  HR Analytics: Employee Attrition Analysis & Prediction
 
 An end-to-end **HR Analytics and Machine Learning project** that analyzes why employees leave an organization and predicts which active employees may be at higher risk of attrition.
 
@@ -6,7 +6,7 @@ The project combines **MySQL, Python, Machine Learning, and Power BI** to build 
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 Employee attrition is an important HR challenge because unexpected employee turnover can increase recruitment costs, reduce productivity, and affect team performance.
 
@@ -46,7 +46,7 @@ The project includes:
 
 ---
 
-# 📊 Dashboard Preview
+#  Dashboard Preview
 
 ## Page 1 — Attrition Overview
 
@@ -81,7 +81,7 @@ It includes:
 
 ---
 
-# 🔄 Project Workflow
+#  Project Workflow
 
 ```text
                   MySQL
@@ -127,7 +127,7 @@ It includes:
 
 ---
 
-# 🛠️ Project Workflow
+# Project Workflow
 
 ### 1. Data Storage
 
@@ -190,7 +190,7 @@ The result provides statistical evidence of a difference in average monthly inco
 
 ---
 
-# 📈 Key Historical Findings
+#  Key Historical Findings
 
 The historical analysis uses all **1,470 employees**.
 
@@ -246,7 +246,7 @@ for employees in the highest satisfaction group.
 
 ---
 
-# 🤖 Machine Learning
+#  Machine Learning
 
 ## Objective
 
@@ -267,7 +267,7 @@ No  → 0
 
 ---
 
-## 🧹 Data Preprocessing
+##  Data Preprocessing
 
 The following non-informative columns were removed:
 
@@ -307,7 +307,7 @@ random_state = 42
 
 ---
 
-# 🧠 Models Compared
+#  Models Compared
 
 Two classification models were evaluated.
 
@@ -326,7 +326,7 @@ solver = "liblinear"
 
 ---
 
-# 🎯 Threshold Optimization
+#  Threshold Optimization
 
 The dataset is imbalanced, with only about **16% of employees being leavers**.
 
@@ -350,7 +350,7 @@ This threshold was selected based on the observed trade-off between precision an
 
 ---
 
-# 📊 Confusion Matrix
+#  Confusion Matrix
 
 Test-set performance at the `0.40` threshold:
 
@@ -372,7 +372,7 @@ The model identified **19 of the 39 actual leavers** in the test set.
 
 ---
 
-# 🔮 Predicting Attrition for Active Employees
+#  Predicting Attrition for Active Employees
 
 After evaluating the model, it was applied only to employees whose historical attrition status was:
 
