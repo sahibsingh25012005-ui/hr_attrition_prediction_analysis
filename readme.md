@@ -66,7 +66,7 @@ This page focuses on **historical employee attrition**, including:
 
 ## Page 2 — Predicted Attrition Risk
 
-![Predicted Attrition Risk](images/predicted_attrition.png)
+![Predicted Attrition Risk](https://github.com/sahibsingh25012005-ui/hr_attrition_prediction_analysis/blob/main/Images/Predicted_Analysis_Risk.png)
 
 This page focuses on the **active workforce** and the employees identified by the ML model as having a higher predicted probability of attrition.
 
